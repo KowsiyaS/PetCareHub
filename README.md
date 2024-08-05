@@ -60,7 +60,7 @@ The primary users of PetCare Hub are pet owners who want a convenient way to man
 ![](./images/LandingPage.png)
 
 #### Calendar Page
-![](./images/Renminders.png)
+![](./images/Reminders.png)
 
 #### Add Reminder Modal
 ![](./images/AddReminderModal.png)
