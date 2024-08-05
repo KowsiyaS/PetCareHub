@@ -6,7 +6,7 @@ PetCare Hub is pet management app designed to help pet owners organize and manag
 
 ### Problem
 
-Pet owners often have a hard time managing their pets' health records, scheduling vet appointments, and finding trustworthy veterinary services. This can result in missed appointments, forgotten vaccinations, and overall poor pet health management. PetCare Hub solves these problems by offering a centralized platform for all pet care needs.
+Finding reliable veterinarian services, keeping track of their pets' medical data, and arranging vet visits are all challenges faced by pet owners. This may lead to a poor overall pet health care, missing appointments, and forgotten immunizations. These issues are addressed by PetCare Hub, which provides a single platform for all pet care needs.
 
 ### User Profile
 
@@ -57,31 +57,31 @@ The primary users of PetCare Hub are pet owners who want a convenient way to man
 ![](./images/Login.png)
 
 #### Landing Page
-![](./images/Landing Page.png)
+![](./images/LandingPage.png)
 
 #### Calendar Page
 ![](./images/Renminders.png)
 
 #### Add Reminder Modal
-![](./images/Add Reminder Modal.png)
+![](./images/AddReminderModal.png)
 
 #### Find Vet Page
-![](./images/Find Vet.png)
+![](./images/FindVet.png)
 
 #### Schedule Appointment
-![](./images/Add Appointment Modal.png)
+![](./images/AddAppointmentModal.png)
 
 #### View Appointment Page
-![](./images/Edit Appointment.png)
+![](./images/EditAppointment.png)
 
 #### Pet List Page
-![](./images/iew Pet List.png)
+![](./images/ViewPetList.png)
 
 #### Pet Details Page
 ![](./images/PetDetails.png)
 
 #### Add Record Page
-![](./images/AddEdit Record.png)
+![](./images/AddEditRecord.png)
 
 
 ### Data
