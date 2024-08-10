@@ -10,88 +10,100 @@ Finding reliable veterinarian services, keeping track of their pets' medical dat
 
 ### User Profile
 
-The primary users of PetCare Hub are pet owners who want a convenient way to manage their pet’s health. 
+The primary users of PetCare Hub are pet owners who want a convenient way to manage their pet’s health.
 
 ### Features
 
-- **User Registration and Login**: Users can create accounts and log in to access their pet care information.
-- **Pet Profiles**: Users can create and manage profiles for each of their pets.
-- **Find Vets**: Search for nearby veterinarians using the Google Maps and Places APIs.
-- **Schedule Appointments**: Users can schedule and manage vet appointments using the Google Calendar API.
-- **Medical Records**: Store and access medical records for each pet.
+-   **User Registration and Login**: Users can create accounts and log in to access their pet care information.
+-   **Pet Profiles**: Users can create and manage profiles for each of their pets.
+-   **Find Vets**: Search for nearby veterinarians using the Google Maps and Places APIs.
+-   **Schedule Appointments**: Users can schedule and manage vet appointments using the Google Calendar API.
+-   **Medical Records**: Store and access medical records for each pet.
 
 ## Implementation
 
 ### Tech Stack
 
-- **Frontend**: React, Sass, React Router, Axios
-- **Backend**: Node.js, Express, Knex
-- **Database**: MySQL 
-- **APIs**: Google Maps API, Google Places API, Google Calendar API
-- **Authentication**: Firebase Authentication
+-   **Frontend**: React, Sass, React Router, Axios
+-   **Backend**: Node.js, Express, Knex
+-   **Database**: MySQL
+-   **APIs**: Google Maps API, Google Places API, Google Calendar API
+-   **Authentication**: Firebase Authentication
 
 ### APIs
 
-- **Google Maps API**: To locate nearby veterinary clinics.
-- **Google Places API**: To get details about veterinary clinics.
-- **Google Calendar API**: To schedule and manage appointments.
+-   **Google Maps API**: To locate nearby veterinary clinics.
+-   **Google Places API**: To get details about veterinary clinics.
+-   **Google Calendar API**: To schedule and manage appointments.
 
 ### Sitemap
 
-- **Home**: Introduction to the app and user login/registration.
-- **Landing Page**: Overview of pets and upcoming appointments.
-- **Find Vets**: Map and list of nearby veterinarians with option to add appointment.
-- **Pet Profiles**: Pet details with option to add medical details.
-- **Appointments/Reminders**: Calendar view of scheduled appointments with option to add reminders.
-- **Pet List**: List of user's pets with option to add pets to your account.
+-   **Home**: Introduction to the app and user login/registration.
+-   **Landing Page**: Overview of pets and upcoming appointments.
+-   **Find Vets**: Map and list of nearby veterinarians with option to add appointment.
+-   **Pet Profiles**: Pet details with option to add medical details.
+-   **Appointments/Reminders**: Calendar view of scheduled appointments with option to add reminders.
+-   **Pet List**: List of user's pets with option to add pets to your account.
 
 ### Mockups
 
 #### Home Page
+
 ![](./images/Home.png)
 
 #### Register Page
-![](./images/Register.png)
+
+![](./public/images/Register.png)
 
 #### Login Page
-![](./images/Login.png)
+
+![](./public/images/Login.png)
 
 #### Landing Page
-![](./images/LandingPage.png)
+
+![](./public/images/LandingPage.png)
 
 #### Calendar Page
-![](./images/Reminders.png)
+
+![](./public/images/Reminders.png)
 
 #### Add Reminder Modal
-![](./images/AddReminderModal.png)
+
+![](./public/images/AddReminderModal.png)
 
 #### Find Vet Page
-![](./images/FindVet.png)
+
+![](./public/images/FindVet.png)
 
 #### Schedule Appointment
-![](./images/AddAppointmentModal.png)
+
+![](./public/images/AddAppointmentModal.png)
 
 #### View Appointment Page
-![](./images/EditAppointment.png)
+
+![](./public/images/EditAppointment.png)
 
 #### Pet List Page
-![](./images/ViewPetList.png)
+
+![](./public/images/ViewPetList.png)
 
 #### Pet Details Page
-![](./images/PetDetails.png)
+
+![](./public/images/PetDetails.png)
 
 #### Add Record Page
-![](./images/AddEditRecord.png)
 
+![](./public/images/AddEditRecord.png)
 
 ### Data
-![](./images/ER_Diagram.jpg)
+
+![](./public/images/ER_Diagram.jpg)
 
 ### Endpoints
 
-- **User Registration**: `POST /api/register`
-  - Parameters: name, email, password
-  - Response: User object or error message
+-   **User Registration**: `POST /api/register`
+    -   Parameters: name, email, password
+    -   Response: User object or error message
 
 ```
 {
@@ -101,9 +113,9 @@ The primary users of PetCare Hub are pet owners who want a convenient way to man
 }
 ```
 
-- **User Login**: `POST /api/login`
-  - Parameters: email, password
-  - Response: JWT token or error message
+-   **User Login**: `POST /api/login`
+    -   Parameters: email, password
+    -   Response: JWT token or error message
 
 ```
 {
@@ -111,9 +123,9 @@ The primary users of PetCare Hub are pet owners who want a convenient way to man
 }
 ```
 
-- **Get Pets**: `GET /api/pets`
-  - Parameters: user_id
-  - Response: List of pets or error message
+-   **Get Pets**: `GET /api/pets`
+    -   Parameters: user_id
+    -   Response: List of pets or error message
 
 ```
 [
@@ -127,9 +139,9 @@ The primary users of PetCare Hub are pet owners who want a convenient way to man
 ]
 ```
 
-- **Add Pet**: `POST /api/pets`
-  - Parameters: user_id, name, birth_date, species,
-  - Response: Pet object or error message
+-   **Add Pet**: `POST /api/pets`
+    -   Parameters: user_id, name, birth_date, species,
+    -   Response: Pet object or error message
 
 ```
 {
@@ -142,9 +154,9 @@ The primary users of PetCare Hub are pet owners who want a convenient way to man
 
 ```
 
-- **Get Appointments**: `GET /api/appointments`
-  - Parameters: pet_id
-  - Response: List of appointments or error message
+-   **Get Appointments**: `GET /api/appointments`
+    -   Parameters: pet_id
+    -   Response: List of appointments or error message
 
 ```
 [
@@ -159,9 +171,9 @@ The primary users of PetCare Hub are pet owners who want a convenient way to man
 ]
 ```
 
-- **Schedule Appointment**: `POST /api/appointments`
-  - Parameters: pet_id, date, time, vet_address, description
-  - Response: Appointment object or error message
+-   **Schedule Appointment**: `POST /api/appointments`
+    -   Parameters: pet_id, date, time, vet_address, description
+    -   Response: Appointment object or error message
 
 ```
 {
@@ -174,9 +186,9 @@ The primary users of PetCare Hub are pet owners who want a convenient way to man
 
 ```
 
-- **Get Reminders**: `GET /api/reminders`
-  - Parameters: pet_id
-  - Response: List of reminders or error message
+-   **Get Reminders**: `GET /api/reminders`
+    -   Parameters: pet_id
+    -   Response: List of reminders or error message
 
 ```
 [
@@ -191,9 +203,9 @@ The primary users of PetCare Hub are pet owners who want a convenient way to man
 ]
 ```
 
-- **Schedule Reminder**: `POST /api/reminders`
-  - Parameters: pet_id, date, time, task_name, description
-  - Response: Appointment object or error message
+-   **Schedule Reminder**: `POST /api/reminders`
+    -   Parameters: pet_id, date, time, task_name, description
+    -   Response: Appointment object or error message
 
 ```
 {
@@ -206,9 +218,9 @@ The primary users of PetCare Hub are pet owners who want a convenient way to man
 
 ```
 
-- **Get Medical Records**: `GET /api/records`
-  - Parameters: pet_id
-  - Response: List of medical records or error message
+-   **Get Medical Records**: `GET /api/records`
+    -   Parameters: pet_id
+    -   Response: List of medical records or error message
 
 ```
 [
@@ -223,9 +235,9 @@ The primary users of PetCare Hub are pet owners who want a convenient way to man
 ]
 ```
 
-- **Add Medical Records**: `POST /api/records`
-  - Parameters: pet_id, date, time, record_type, description
-  - Response: Appointment object or error message
+-   **Add Medical Records**: `POST /api/records`
+    -   Parameters: pet_id, date, time, record_type, description
+    -   Response: Appointment object or error message
 
 ```
 {
@@ -240,40 +252,47 @@ The primary users of PetCare Hub are pet owners who want a convenient way to man
 
 ### Auth
 
-Firebase Authentication will be used for user authentication. 
+Firebase Authentication will be used for user authentication.
 
 ## Roadmap
 
 ### Set-up database
-- Create MySQL database migration and seed files
-- Add all API calls.
+
+-   Create MySQL database migration and seed files
+-   Add all API calls.
 
 ### Set-up user login
-- Set up the React project and Firebase Authentication.
-- Create home, login, register page.
+
+-   Set up the React project and Firebase Authentication.
+-   Create home, login, register page.
 
 ### Set up pet detail
-- Create pet list, add pet and view pet details pages.
-- Create add medical record page.
-- Create landing page.
+
+-   Create pet list, add pet and view pet details pages.
+-   Create add medical record page.
+-   Create landing page.
 
 ### Set up appointment/reminder pages
-- Integrate Google Calendar API for scheduling appointments.
-- Create add reminder modal and reminder page.
+
+-   Integrate Google Calendar API for scheduling appointments.
+-   Create add reminder modal and reminder page.
 
 ### Set up find vets pages
-- Create find vet and add appointment pages.
-- Integrate Google Maps and Places APIs for finding vets.
-- Display vet search results.
 
-### Test and Deploy 
-- Test the application.
-- Fix any bugs and update an UI changes.
+-   Create find vet and add appointment pages.
+-   Integrate Google Maps and Places APIs for finding vets.
+-   Display vet search results.
+
+### Test and Deploy
+
+-   Test the application.
+-   Fix any bugs and update an UI changes.
 
 ## Nice-to-haves
-- **Find groomers**: Search for nearby pet groomers using the Google Maps and Places APIs.
-- **Medical records**: Uploads images/documents for medical records.
-- **Edit user details**: Users can update passwords and personal information.
-- **Edit pet details**: Users can update/delete pet records.
-- **Edit calendar**: Remove or edit appointment/tasks.
-- **Search records**: Users can search through pet medical records.
+
+-   **Find groomers**: Search for nearby pet groomers using the Google Maps and Places APIs.
+-   **Medical records**: Uploads images/documents for medical records.
+-   **Edit user details**: Users can update passwords and personal information.
+-   **Edit pet details**: Users can update/delete pet records.
+-   **Edit calendar**: Remove or edit appointment/tasks.
+-   **Search records**: Users can search through pet medical records.
