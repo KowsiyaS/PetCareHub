@@ -1,0 +1,21 @@
+.dot-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reminder-dot,
+.appointment-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin: 2px;
+}
+
+.reminder-dot {
+    background-color: red; /* Color for reminders */
+}
+
+.appointment-dot {
+    background-color: blue; /* Color for appointments */
+}
