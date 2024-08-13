@@ -9,10 +9,11 @@ const TaskCalendar = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const [tasks, setTasks] = useState([
-        { date: new Date(2024, 7, 15), type: "reminder" },
-        { date: new Date(2024, 7, 15), type: "appointment" },
+        { date: new Date("2024-08-15" + "T00:00:00"), type: "reminder" },
+        { date: new Date("2024-08-15" + "T00:00:00"), type: "appointment" },
     ]);
 
+    console.log(tasks);
     const handleDateChange = (newDate) => {
         setDate(newDate);
     };

@@ -2,13 +2,15 @@ import { useState } from "react";
 import Modal from "react-modal";
 import "./AddTaskModal.scss";
 
+Modal.setAppElement("#root");
+
 const TaskModal = ({ isOpen, onRequestClose, addTask }) => {
     const [date, setDate] = useState("");
     const [type, setType] = useState("reminder");
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addTask(new Date(date), type);
+        addTask(new Date(date + "T00:00:00"), type);
         setDate("");
         setType("reminder");
         onRequestClose();
