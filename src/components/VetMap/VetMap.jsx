@@ -1,5 +1,4 @@
 // API_KEY = AIzaSyDXDfa0MHAV3Z4FBqhInV4JG7qAlvNYSaY
-
 import { useState, useEffect } from "react";
 import {
     GoogleMap,
@@ -7,7 +6,6 @@ import {
     Marker,
     InfoWindow,
 } from "@react-google-maps/api";
-import AppointmentModal from "../AppointmentModal/AppointmentModal";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -41,7 +39,6 @@ const VetMap = () => {
     const [map, setMap] = useState(null);
     const [markers, setMarkers] = useState([]);
     const [selectedPlace, setSelectedPlace] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         if (map) {
@@ -74,9 +71,13 @@ const VetMap = () => {
         });
     };
 
-    const closeModal = () => {
-        setIsModalOpen(false);
+    const handleCloseClick = () => {
         setSelectedPlace(null);
+    };
+
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+        console.log("Form submitted");
     };
 
     return isLoaded ? (
@@ -105,27 +106,48 @@ const VetMap = () => {
                             lat: selectedPlace.geometry.location.lat(),
                             lng: selectedPlace.geometry.location.lng(),
                         }}
+                        onCloseClick={handleCloseClick}
                     >
                         <div>
                             <h2>{selectedPlace.name}</h2>
-                            <p>{selectedPlace.place_id}</p>
                             <p>{selectedPlace.formatted_address}</p>
                             <p>Rating: {selectedPlace.rating}</p>
                             <p>Phone: {selectedPlace.formatted_phone_number}</p>
-                            {/* <button
-                            onClick={() => handleMarkerClick(selectedPlace)}
-                            >
-                                Book Appointment
-                            </button> */}
+                            <form onSubmit={handleFormSubmit}>
+                                <div>
+                                    <label htmlFor="name">Name:</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="email">Email:</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="appointment">
+                                        Appointment Details:
+                                    </label>
+                                    <textarea
+                                        id="appointment"
+                                        name="appointment"
+                                        required
+                                    ></textarea>
+                                </div>
+                                <button type="submit">Book Appointment</button>
+                            </form>
                         </div>
                     </InfoWindow>
                 )}
             </GoogleMap>
-            <AppointmentModal
-                isOpen={isModalOpen}
-                onRequestClose={closeModal}
-                selectedPlace={selectedPlace}
-            />
         </>
     ) : (
         <div>Loading...</div>
