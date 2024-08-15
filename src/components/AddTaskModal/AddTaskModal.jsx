@@ -11,7 +11,7 @@ const TaskModal = ({ isOpen, onRequestClose }) => {
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
     const [selectedPet, setSelectedPet] = useState(null);
-    const [petList, setPetList] = useState("");
+    const [petList, setPetList] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 

@@ -3,6 +3,7 @@ import CalendarPage from "./pages/CalendarPage/CalendarPage";
 import VetFinderPage from "./pages/VetFinderPage/VetFinderPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
+import BookAppointmentPage from "./pages/BookAppointmentPage/BookAppointmentPage";
 
 function App() {
     return (
@@ -12,6 +13,10 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/findvet" element={<VetFinderPage />} />
+                <Route
+                    path="/book-appointment"
+                    element={<BookAppointmentPage />}
+                />
             </Routes>
         </BrowserRouter>
     );

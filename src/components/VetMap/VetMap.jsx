@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
     GoogleMap,
     useLoadScript,
@@ -30,7 +31,10 @@ const VetMap = () => {
     const [map, setMap] = useState(null);
     const [markers, setMarkers] = useState([]);
     const [selectedPlace, setSelectedPlace] = useState(null);
+    const [selectedVet, setSelectedVet] = useState(null);
     const [vetList, setVetList] = useState([]);
+    const [placeList, setPlaceList] = useState([]);
+    const navigate = useNavigate();
 
     const getVets = async () => {
         try {
@@ -40,7 +44,8 @@ const VetMap = () => {
             for (const vet of response.data) {
                 vets.push(vet.place_id);
             }
-            setVetList(vets);
+            setVetList(response.data);
+            setPlaceList(vets);
         } catch (error) {
             console.error("Cannot get vet list", error);
         }
@@ -68,7 +73,7 @@ const VetMap = () => {
                     status === window.google.maps.places.PlacesServiceStatus.OK
                 ) {
                     const filteredList = results.filter((place) =>
-                        vetList.includes(place.place_id)
+                        placeList.includes(place.place_id)
                     );
                     setMarkers(filteredList);
                 }
@@ -81,17 +86,32 @@ const VetMap = () => {
         service.getDetails({ placeId: place.place_id }, (result, status) => {
             if (status === window.google.maps.places.PlacesServiceStatus.OK) {
                 setSelectedPlace(result);
+                const vet = vetList.find(
+                    (vet) => vet.place_id === result.place_id
+                );
+                setSelectedVet(vet);
             }
         });
     };
 
     const handleCloseClick = () => {
         setSelectedPlace(null);
+        setSelectedVet(null);
     };
 
-    const handleFormSubmit = (event) => {
+    const handleBookAppointment = (event) => {
         event.preventDefault();
-        console.log("Form submitted");
+        const { name, formatted_address, rating, formatted_phone_number } =
+            selectedPlace;
+        navigate("/book-appointment", {
+            state: {
+                vetId: selectedVet.id,
+                name,
+                formatted_address,
+                rating,
+                formatted_phone_number,
+            },
+        });
     };
 
     return isLoaded ? (
@@ -127,37 +147,10 @@ const VetMap = () => {
                             <p>{selectedPlace.formatted_address}</p>
                             <p>Rating: {selectedPlace.rating}</p>
                             <p>Phone: {selectedPlace.formatted_phone_number}</p>
-                            <form onSubmit={handleFormSubmit}>
-                                <div>
-                                    <label htmlFor="name">Name:</label>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        name="name"
-                                        required
-                                    />
-                                </div>
-                                <div>
-                                    <label htmlFor="email">Email:</label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        required
-                                    />
-                                </div>
-                                <div>
-                                    <label htmlFor="appointment">
-                                        Appointment Details:
-                                    </label>
-                                    <textarea
-                                        id="appointment"
-                                        name="appointment"
-                                        required
-                                    ></textarea>
-                                </div>
-                                <button type="submit">Book Appointment</button>
-                            </form>
+
+                            <button onClick={handleBookAppointment}>
+                                Book Appointment
+                            </button>
                         </div>
                     </InfoWindow>
                 )}
