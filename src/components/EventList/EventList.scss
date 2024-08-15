@@ -1,0 +1,27 @@
+.event-list {
+    &__container {
+        margin-top: 20px;
+    }
+
+    &__title {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+    }
+
+    &__list {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    &__item {
+        margin: 5px 0;
+    }
+
+    &__item--reminder {
+        color: #007bff;
+    }
+
+    &__item--appointment {
+        color: #28a745;
+    }
+}

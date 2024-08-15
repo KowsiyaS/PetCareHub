@@ -1,4 +1,3 @@
-// API_KEY = AIzaSyDXDfa0MHAV3Z4FBqhInV4JG7qAlvNYSaY
 import { useState, useEffect } from "react";
 import {
     GoogleMap,
@@ -6,39 +5,54 @@ import {
     Marker,
     InfoWindow,
 } from "@react-google-maps/api";
+import axios from "axios";
+
+const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
+const GOOGLE_API_KEY = import.meta.env.VITE_APP_GOOGLE_API_KEY;
 
 const libraries = ["places"];
 const mapContainerStyle = {
     height: "100vh",
     width: "100%",
 };
+
 const center = {
     lat: 43.6545,
     lng: -79.347015,
 };
 
-const vetList = [
-    "ChIJX61xwjXL1IkRDNYMpctRgno",
-    "ChIJ7To8vNs0K4gRNvvJLbs-Xf8",
-    "ChIJy29rIuM0K4gR9_uGfbxB1K4",
-    "ChIJMXwmY980K4gRWWFZTS63ynI",
-    "ChIJee_0oWcsO4gRjc4OqqQzNus",
-    "ChIJVfzHpu40K4gR9iQFBtX5MhE",
-    "ChIJh7QjEJM0K4gR9mswqoulqu0",
-    "ChIJ90WFJ6k0K4gRAqYVLFQAVNE",
-    "ChIJizIwGaQ0K4gRk0GCR1ebt_A",
-    "ChIJeWcZoLI0K4gRxCm0VYzjizY",
-];
-
 const VetMap = () => {
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: "AIzaSyDXDfa0MHAV3Z4FBqhInV4JG7qAlvNYSaY",
+        googleMapsApiKey: GOOGLE_API_KEY,
         libraries,
     });
 
     const [map, setMap] = useState(null);
     const [markers, setMarkers] = useState([]);
     const [selectedPlace, setSelectedPlace] = useState(null);
+    const [vetList, setVetList] = useState([]);
+
+    const getVets = async () => {
+        try {
+            const response = await axios.get(`${API_BASE_URL}/vets`);
+
+            const vets = [];
+            for (const vet of response.data) {
+                vets.push(vet.place_id);
+            }
+            setVetList(vets);
+        } catch (error) {
+            console.error("Cannot get vet list", error);
+        }
+    };
+
+    useEffect(() => {
+        try {
+            getVets();
+        } catch (error) {
+            console.error("Error retrieving vet list", error);
+        }
+    }, []);
 
     useEffect(() => {
         if (map) {

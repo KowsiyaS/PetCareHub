@@ -1,21 +1,14 @@
-.dot-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.has-event {
+    position: relative;
 }
 
-.reminder-dot,
-.appointment-dot {
-    width: 6px;
-    height: 6px;
+.event-dot {
+    position: absolute;
+    left: 50%;
+    bottom: 5px;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
-    margin: 2px;
-}
-
-.reminder-dot {
-    background-color: red; /* Color for reminders */
-}
-
-.appointment-dot {
-    background-color: blue; /* Color for appointments */
+    background-color: blue; // Ensure this matches dotColor
 }

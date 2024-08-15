@@ -1,49 +1,98 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import AddTaskModal from "../AddTaskModal/AddTaskModal";
+import EventList from "../EventList/EventList";
 import "./TaskCalendar.scss";
+import axios from "axios";
 
 const TaskCalendar = () => {
     const [date, setDate] = useState(new Date());
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [scheduledDates, setScheduledDates] = useState({});
+    const [reminders, setReminders] = useState([]);
+    const [appointments, setAppointments] = useState([]);
+    const [selectedDateEvents, setSelectedDateEvents] = useState([]);
+    const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
-    const [tasks, setTasks] = useState([
-        { date: new Date("2024-08-15" + "T00:00:00"), type: "reminder" },
-        { date: new Date("2024-08-15" + "T00:00:00"), type: "appointment" },
-    ]);
+    const dotColor = "blue";
 
-    console.log(tasks);
-    const handleDateChange = (newDate) => {
-        setDate(newDate);
+    const fetchScheduledDates = async () => {
+        try {
+            const reminderResponse = await axios.get(
+                `${API_BASE_URL}/reminder`
+            );
+            const appointmentResponse = await axios.get(
+                `${API_BASE_URL}/appointment`
+            );
+            setReminders(reminderResponse.data);
+            setAppointments(appointmentResponse.data);
+
+            const dates = reminderResponse.data
+                .concat(appointmentResponse.data)
+                .reduce((datesMap, item) => {
+                    if (item.date) {
+                        datesMap[item.date] = true;
+                    }
+                    return datesMap;
+                }, {});
+            console.log(dates);
+            setScheduledDates(dates);
+        } catch (error) {
+            console.error("Error fetching scheduled dates:", error);
+        }
     };
 
-    const addTask = (date, type) => {
-        setTasks([...tasks, { date, type }]);
+    useEffect(() => {
+        fetchScheduledDates();
+    }, []);
+
+    useEffect(() => {
+        fetchScheduledDates();
+    }, [modalIsOpen]);
+
+    useEffect(() => {
+        const selectedDateString = date.toISOString().split("T")[0];
+        const eventsForSelectedDate = [
+            ...reminders.filter(
+                (reminder) => reminder.date === selectedDateString
+            ),
+            ...appointments.filter(
+                (appointment) => appointment.date === selectedDateString
+            ),
+        ];
+        setSelectedDateEvents(eventsForSelectedDate);
+    }, [date, reminders, appointments]);
+
+    const tileClassName = ({ date }) => {
+        const dateString = date.toISOString().split("T")[0];
+        return scheduledDates[dateString] ? "has-event" : null;
     };
 
-    const getDots = (date) => {
-        return tasks
-            .filter((task) => task.date.toDateString() === date.toDateString())
-            .map((task) => (
-                <div key={task.type} className={`${task.type}-dot`} />
-            ));
+    const tileContent = ({ date }) => {
+        const dateString = date.toISOString().split("T")[0];
+        return scheduledDates[dateString] ? (
+            <div className="event-dot" style={{ backgroundColor: dotColor }} />
+        ) : null;
     };
 
     return (
         <div>
             <Calendar
-                onChange={handleDateChange}
+                onChange={setDate}
                 value={date}
-                tileContent={({ date }) => (
-                    <div className="dot-container">{getDots(date)}</div>
-                )}
+                tileClassName={tileClassName}
+                tileContent={tileContent}
             />
             <button onClick={() => setModalIsOpen(true)}>Add Task</button>
             <AddTaskModal
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
-                addTask={addTask}
+            />
+            <EventList
+                events={selectedDateEvents}
+                selectedDate={date}
+                eventType="reminder"
             />
         </div>
     );
