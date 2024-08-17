@@ -6,7 +6,7 @@ import EventList from "../EventList/EventList";
 import "./TaskCalendar.scss";
 import axios from "axios";
 
-const TaskCalendar = () => {
+const TaskCalendar = ({ token }) => {
     const [date, setDate] = useState(new Date());
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [scheduledDates, setScheduledDates] = useState({});

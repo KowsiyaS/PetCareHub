@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import "./Header.scss";
 
-const Header = () => {
+const Header = ({ isLoggedIn, setIsLoggedIn }) => {
     const logOut = () => {
         sessionStorage.removeItem("authToken");
         setIsLoggedIn(false);
     };
 
-    return (
+    return isLoggedIn ? (
         <header className="header">
             <nav className="header__nav">
                 <Link to="/dashboard" className="header__link">
@@ -19,6 +19,14 @@ const Header = () => {
                 <Link to="/upload-record" className="header__link">
                     Upload Record
                 </Link>
+                <Link to="/" className="header__link" onClick={logOut}>
+                    Logout
+                </Link>
+            </nav>
+        </header>
+    ) : (
+        <header className="header">
+            <nav className="header__nav">
                 <Link to="/login" className="header__link">
                     Login
                 </Link>
