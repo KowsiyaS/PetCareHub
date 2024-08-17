@@ -1,17 +1,32 @@
 import { useState } from "react";
-//import "./Login.scss";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
+    const navigate = useNavigate();
+    const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (username === "admin" && password === "password") {
-            setMessage("Login successful!");
-        } else {
+        try {
+            const response = await axios.post(`${API_BASE_URL}/user/login`, {
+                email: username,
+                password,
+            });
+
+            const token = response.data.token;
+
+            sessionStorage.setItem("authToken", token);
+
+            setIsLoggedIn(true);
+            setMessage("Successfully logged in.");
+            navigate("/dashboard");
+        } catch (error) {
+            console.error("Login error:", error);
             setMessage("Invalid credentials, please try again.");
         }
     };
@@ -19,8 +34,9 @@ const Login = () => {
     return (
         <div className="login-container">
             <h1>Login</h1>
+
             <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username:</label>
+                <label htmlFor="username">Email:</label>
                 <input
                     type="text"
                     id="username"

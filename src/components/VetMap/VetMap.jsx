@@ -79,7 +79,7 @@ const VetMap = () => {
                 }
             });
         }
-    }, [map]);
+    }, [map, placeList]);
 
     const handleMarkerClick = (place) => {
         const service = new window.google.maps.places.PlacesService(map);

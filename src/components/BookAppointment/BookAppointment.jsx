@@ -16,7 +16,7 @@ const BookAppointment = () => {
     const [selectedPet, setSelectedPet] = useState(null);
     const [petList, setPetList] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
-    const navigate = useNavigate("/");
+    const navigate = useNavigate("");
 
     const getPets = async () => {
         try {
@@ -69,7 +69,9 @@ const BookAppointment = () => {
                 date,
                 time: selectedTime,
             });
+
             alert("Appointment booked successfully!");
+            navigate("/");
         } catch (error) {
             console.error("Error booking appointment", error);
         }

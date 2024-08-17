@@ -1,10 +1,15 @@
+import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [message, setMessage] = useState("");
+    const navigate = useNavigate();
+    const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
     const handleUsername = (e) => {
         setUsername(e.target.value);
@@ -22,10 +27,28 @@ const SignUp = () => {
         setConfirmPassword(e.target.value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission, e.g., send data to an API
-        console.log("Form submitted", { username, email, password });
+
+        if (!username || !email || !password || !confirmPassword) {
+            setMessage("Please enter required feilds.");
+        }
+
+        if (password === confirmPassword) {
+            try {
+                await axios.post(`${API_BASE_URL}/user/register`, {
+                    name: username,
+                    email: email,
+                    password: password,
+                });
+                setMessage("Successfully registered.");
+                navigate("/login");
+            } catch (error) {
+                setMessage("unable to register user.");
+            }
+        } else {
+            setMessage("Passwords do not match.");
+        }
     };
 
     return (
@@ -74,6 +97,7 @@ const SignUp = () => {
                 </div>
                 <button type="submit">Sign Up</button>
             </form>
+            <p>{message}</p>
         </div>
     );
 };

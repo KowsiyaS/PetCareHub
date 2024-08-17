@@ -1,9 +1,9 @@
 import Login from "../../components/Login/Login";
 
-const LoginPage = () => {
+const LoginPage = ({ setIsLoggedIn }) => {
     return (
         <>
-            <Login />
+            <Login setIsLoggedIn={setIsLoggedIn} />
         </>
     );
 };

@@ -20,10 +20,20 @@ const TaskCalendar = () => {
     const fetchScheduledDates = async () => {
         try {
             const reminderResponse = await axios.get(
-                `${API_BASE_URL}/reminder`
+                `${API_BASE_URL}/reminder`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             );
             const appointmentResponse = await axios.get(
-                `${API_BASE_URL}/appointment`
+                `${API_BASE_URL}/appointment`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             );
             setReminders(reminderResponse.data);
             setAppointments(appointmentResponse.data);
