@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import VetMap from "../../components/VetMap/VetMap";
 
-const VetFinderPage = () => {
+const VetFinderPage = ({ isLoggedIn }) => {
     const token = sessionStorage.getItem("authToken");
     const navigate = useNavigate();
 

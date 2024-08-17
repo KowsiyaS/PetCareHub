@@ -4,7 +4,7 @@ import axios from "axios";
 
 const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
-const BookAppointment = () => {
+const BookAppointment = ({ token }) => {
     const location = useLocation();
     const { vetId, name, formatted_address, rating, formatted_phone_number } =
         location.state;
@@ -20,8 +20,12 @@ const BookAppointment = () => {
 
     const getPets = async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/pet`);
-            console.log(response.data);
+            const response = await axios.get(`${API_BASE_URL}/pet`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
             const tempList = response.data.map((pet) => ({
                 value: pet.id,
                 name: pet.name,
@@ -30,7 +34,7 @@ const BookAppointment = () => {
             setSelectedPet(tempList[0]);
             setIsLoaded(true);
         } catch (error) {
-            console.error("Error fetching pets:", error);
+            console.error("Error retrieving pets:", error);
         }
     };
 
@@ -45,12 +49,21 @@ const BookAppointment = () => {
                     const response = await axios.get(
                         `${API_BASE_URL}/appointment/timeslots`,
                         {
-                            params: { vet_id: vetId, date },
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                            params: {
+                                vet_id: vetId,
+                                date: date,
+                            },
                         }
                     );
                     setTimeSlots(response.data);
                 } catch (error) {
-                    console.error("Error fetching available slots", error);
+                    console.error(
+                        "Error retrieving available time slots for the vet.",
+                        error
+                    );
                 }
             };
 
@@ -62,22 +75,31 @@ const BookAppointment = () => {
         event.preventDefault();
 
         try {
-            await axios.post(`${API_BASE_URL}/appointment`, {
+            const apppointment = {
                 vet_id: vetId,
                 pet_id: selectedPet.value,
                 description: appointmentDetails,
                 date,
                 time: selectedTime,
+            };
+            await axios.post(`${API_BASE_URL}/appointment`, apppointment, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
 
             alert("Appointment booked successfully!");
-            navigate("/");
+            navigate("/dashboard");
         } catch (error) {
             console.error("Error booking appointment", error);
         }
     };
 
-    return isLoaded ? (
+    if (!isLoaded) {
+        return <>Loading</>;
+    }
+
+    return petList.length > 0 ? (
         <div>
             <h2>Book Appointment at {name}</h2>
             <p>{formatted_address}</p>
@@ -143,7 +165,7 @@ const BookAppointment = () => {
             </form>
         </div>
     ) : (
-        <div>Loading...</div>
+        <div>Please add a pet to use the booking function.</div>
     );
 };
 

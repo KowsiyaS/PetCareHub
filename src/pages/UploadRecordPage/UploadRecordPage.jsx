@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UploadRecord from "../../components/UploadRecord/UploadRecord";
 
-const UploadRecordPage = () => {
+const UploadRecordPage = ({ isLoggedIn }) => {
     const token = sessionStorage.getItem("authToken");
     const navigate = useNavigate();
 

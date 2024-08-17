@@ -22,7 +22,7 @@ const center = {
     lng: -79.347015,
 };
 
-const VetMap = () => {
+const VetMap = ({ token }) => {
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: GOOGLE_API_KEY,
         libraries,
@@ -38,7 +38,11 @@ const VetMap = () => {
 
     const getVets = async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/vets`);
+            const response = await axios.get(`${API_BASE_URL}/vets`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
 
             const vets = [];
             for (const vet of response.data) {

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const UploadRecord = () => {
+const UploadRecord = ({ token }) => {
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -16,7 +16,11 @@ const UploadRecord = () => {
 
     const getPets = async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/pet`);
+            const response = await axios.get(`${API_BASE_URL}/pet`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             console.log(response.data);
             const tempList = response.data.map((pet) => ({
                 value: pet.id,
@@ -58,7 +62,12 @@ const UploadRecord = () => {
         try {
             const response = await axios.post(
                 `${API_BASE_URL}/medical-record/upload`,
-                formData
+                formData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             );
             setUploadedFileUrl(response.data.fileUrl);
             alert("File uploaded successfully");
