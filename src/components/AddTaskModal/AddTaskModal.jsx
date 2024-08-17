@@ -5,35 +5,13 @@ import axios from "axios";
 
 Modal.setAppElement("#root");
 
-const TaskModal = ({ isOpen, onRequestClose }) => {
+const TaskModal = ({ isOpen, onRequestClose, petList, token }) => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
-    const [selectedPet, setSelectedPet] = useState(null);
-    const [petList, setPetList] = useState([]);
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [selectedPet, setSelectedPet] = useState(petList[0]);
     const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
-
-    const getPets = async () => {
-        try {
-            const response = await axios.get(`${API_BASE_URL}/pet`);
-            console.log(response.data);
-            const tempList = response.data.map((pet) => ({
-                value: pet.id,
-                name: pet.name,
-            }));
-            setPetList(tempList);
-            setSelectedPet(tempList[0]);
-            setIsLoaded(true);
-        } catch (error) {
-            console.error("Error fetching pets:", error);
-        }
-    };
-
-    useEffect(() => {
-        getPets();
-    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -45,7 +23,11 @@ const TaskModal = ({ isOpen, onRequestClose }) => {
                 date: date,
                 time: time,
             };
-            await axios.post(`${API_BASE_URL}/reminder`, reminder);
+            await axios.post(`${API_BASE_URL}/reminder`, reminder, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             console.log(reminder);
             setDescription("");
             setName("");
@@ -57,7 +39,7 @@ const TaskModal = ({ isOpen, onRequestClose }) => {
         }
     };
 
-    return isLoaded ? (
+    return (
         <Modal
             isOpen={isOpen}
             onRequestClose={onRequestClose}
@@ -74,6 +56,7 @@ const TaskModal = ({ isOpen, onRequestClose }) => {
                         value={selectedPet}
                         onChange={(e) => setSelectedPet(e.target.value)}
                     >
+                        <option disabled>Select a Pet</option>
                         {petList.map((pet) => (
                             <option key={pet.value} value={pet.value}>
                                 {pet.name}
@@ -126,8 +109,6 @@ const TaskModal = ({ isOpen, onRequestClose }) => {
                 </div>
             </form>
         </Modal>
-    ) : (
-        <div>Loading...</div>
     );
 };
 

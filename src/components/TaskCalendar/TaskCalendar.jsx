@@ -12,12 +12,14 @@ const TaskCalendar = ({ token }) => {
     const [scheduledDates, setScheduledDates] = useState({});
     const [reminders, setReminders] = useState([]);
     const [appointments, setAppointments] = useState([]);
+    const [petList, setPetList] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
     const [selectedDateEvents, setSelectedDateEvents] = useState([]);
     const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
     const dotColor = "blue";
 
-    const fetchScheduledDates = async () => {
+    const getScheduledDates = async () => {
         try {
             const reminderResponse = await axios.get(
                 `${API_BASE_URL}/reminder`,
@@ -49,16 +51,36 @@ const TaskCalendar = ({ token }) => {
             console.log(dates);
             setScheduledDates(dates);
         } catch (error) {
-            console.error("Error fetching scheduled dates:", error);
+            console.error("Error retrieving scheduled dates:", error);
+        }
+    };
+
+    const getPets = async () => {
+        try {
+            const response = await axios.get(`${API_BASE_URL}/pet`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log(response.data);
+            const tempList = response.data.map((pet) => ({
+                value: pet.id,
+                name: pet.name,
+            }));
+            setPetList(tempList);
+            setIsLoaded(true);
+        } catch (error) {
+            console.error("Error retrieving pets:", error);
         }
     };
 
     useEffect(() => {
-        fetchScheduledDates();
+        getScheduledDates();
+        getPets();
     }, []);
 
     useEffect(() => {
-        fetchScheduledDates();
+        getScheduledDates();
     }, [modalIsOpen]);
 
     useEffect(() => {
@@ -86,7 +108,7 @@ const TaskCalendar = ({ token }) => {
         ) : null;
     };
 
-    return (
+    return isLoaded ? (
         <div>
             <Calendar
                 onChange={setDate}
@@ -94,17 +116,32 @@ const TaskCalendar = ({ token }) => {
                 tileClassName={tileClassName}
                 tileContent={tileContent}
             />
-            <button onClick={() => setModalIsOpen(true)}>Add Task</button>
-            <AddTaskModal
-                isOpen={modalIsOpen}
-                onRequestClose={() => setModalIsOpen(false)}
-            />
-            <EventList
-                events={selectedDateEvents}
-                selectedDate={date}
-                eventType="reminder"
-            />
+            {petList.length !== 0 ? (
+                <>
+                    <button onClick={() => setModalIsOpen(true)}>
+                        Add Task
+                    </button>
+                    <AddTaskModal
+                        isOpen={modalIsOpen}
+                        onRequestClose={() => setModalIsOpen(false)}
+                        petList={petList}
+                        token={token}
+                    />
+                    <EventList
+                        events={selectedDateEvents}
+                        selectedDate={date}
+                        eventType="reminder"
+                        token={token}
+                    />
+                </>
+            ) : (
+                <>
+                    <p>Please add a pet to use the calendar.</p>
+                </>
+            )}
         </div>
+    ) : (
+        <>Loading...</>
     );
 };
 
