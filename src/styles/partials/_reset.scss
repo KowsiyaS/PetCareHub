@@ -11,4 +11,5 @@ figcaption, footer, header, nav,section{
 *::before,
 *::after {
     box-sizing: inherit;
+    font-family: inherit;
 }

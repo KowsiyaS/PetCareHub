@@ -77,14 +77,29 @@
     &__button {
         padding: 0.5rem 1rem;
         border: none;
-        border-radius: 4px;
+        border-radius: 5px;
         cursor: pointer;
         font-size: 1rem;
-    }
+        background-color: $primary-purple;
+        color: $primary-white;
 
-    &__button--cancel {
-        background-color: #f0f0f0;
-        color: #333;
+        &:hover {
+            background-color: $secondary-dark-purple;
+        }
+
+        &--cancel {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        &--delete {
+            background-color: #e74c3c;
+            color: $primary-white;
+        }
+
+        &--delete:hover {
+            background-color: #c0392b;
+        }
     }
 
     &__view {

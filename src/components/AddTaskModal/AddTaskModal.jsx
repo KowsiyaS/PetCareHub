@@ -71,6 +71,22 @@ const AddTaskModal = ({ isOpen, onRequestClose, petList, token, event }) => {
         }
     };
 
+    const handleDelete = async () => {
+        if (!event) return;
+
+        try {
+            await axios.delete(`${API_BASE_URL}/reminder/${event.id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log("Task deleted");
+            onRequestClose(); // Close the modal after deletion
+        } catch (error) {
+            console.error("Cannot delete task:", error);
+        }
+    };
+
     return (
         <Modal
             isOpen={isOpen}
@@ -192,7 +208,7 @@ const AddTaskModal = ({ isOpen, onRequestClose, petList, token, event }) => {
                                 if (event) setIsEditing(false);
                                 onRequestClose();
                             }}
-                            className="add-task-modal__button--cancel"
+                            className="add-task-modal__button add-task-modal__button--cancel"
                         >
                             Cancel
                         </button>
@@ -215,12 +231,20 @@ const AddTaskModal = ({ isOpen, onRequestClose, petList, token, event }) => {
                     <p>
                         <strong>Pet:</strong> {selectedPet?.name}
                     </p>
-                    <button
-                        onClick={() => setIsEditing(true)}
-                        className="add-task-modal__button"
-                    >
-                        Edit
-                    </button>
+                    <div className="add-task-modal__buttons">
+                        <button
+                            onClick={() => setIsEditing(true)}
+                            className="add-task-modal__button add-task-modal__button"
+                        >
+                            Edit
+                        </button>
+                        <button
+                            onClick={handleDelete}
+                            className="add-task-modal__button add-task-modal__button--delete"
+                        >
+                            Delete
+                        </button>
+                    </div>
                 </div>
             )}
         </Modal>
