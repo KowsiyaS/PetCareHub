@@ -1,0 +1,80 @@
+//set screen size min-widths
+$tablet-breakpoint: 48rem;
+$desktop-breakpoint: 80rem;
+
+//sets the font sizes for the different screens
+$mobile-header-txt: 1.5rem;
+$mobile-header-lineheight: 2rem;
+$mobile-section-header-txt: 0.75rem;
+$mobile-section-header-lineheight: 1.25rem;
+$mobile-subheader-txt: 0.8125rem;
+$mobile-subheader-lineheight: 1.125rem;
+$mobile-body-txt: 0.8125rem;
+$mobile-body-lineheight: 1.125rem;
+$mobile-label-txt: 0.625rem;
+$mobile-details-txt: 0.875rem;
+
+$tablet-header-txt: 2.0625rem;
+$tablet-header-lineheight: 2.75rem;
+$tablet-section-header-txt: 0.75rem;
+$tablet-section-header-lineheight: 1.25rem;
+$tablet-subheader-txt: 0.875rem;
+$tablet-subheader-lineheight: 1.375rem;
+$tablet-body-txt: 0.875rem;
+$tablet-body-lineheight: 1.375rem;
+$tablet-label-txt: 0.75rem;
+
+//sets padding variables
+$mobile-heading-top: 1.5rem;
+$mobile-padding: 1rem;
+
+$tablet-heading-top: 2.25rem;
+$tablet-padding: 1.5rem;
+
+//set the desktop padding to change so content stays within 1280px
+$desktop-padding: calc(
+    (100% - ($desktop-breakpoint - $tablet-padding * 2)) / 2
+);
+
+//set band site colours
+$primary-black: #323232;
+$primary-purple: #bb9ab1;
+$primary-grey: #7f8c8d;
+$primary-white: #ffffff;
+$secondary-dark-black: #000000;
+$secondary-dark-purple: #987d9a;
+$secondary-mercury: #e1e1e1;
+$secondary-alabaster: #fafafa;
+$error-color: #d22d2d;
+
+//logo dimension
+$logo-height: 1.5625rem;
+$logo-width: 7.5rem;
+
+//button styles
+$button-height: 2.5rem;
+$button-tablet-width: 9.375rem;
+$button-padding: 2rem;
+$buttton-radius: 0.25rem;
+
+//form styles
+$mobile-input-height: 2.25rem;
+$mobile-form-padding: 0.75rem;
+
+$tablet-input-height: 2.5rem;
+$tablet-form-padding: 1rem;
+
+$form-input-min-width: 15rem;
+$form-label-padding: 0.25rem;
+$form-input-radius: 0.25rem;
+
+//image styles
+$image-radius: 0.25rem;
+
+//avatar sizing
+$mobile-avatar-size: 2.25rem;
+$tablet-avatar-size: 2.5rem;
+$avatar-radius: 50%;
+
+//divider
+$divider: 1px solid $secondary-mercury;

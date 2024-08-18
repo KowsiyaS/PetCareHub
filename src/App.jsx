@@ -8,6 +8,8 @@ import BookAppointmentPage from "./pages/BookAppointmentPage/BookAppointmentPage
 import UploadRecordPage from "./pages/UploadRecordPage/UploadRecordPage";
 import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
+import "./app.scss";
 
 function App() {
     const hasToken = !!sessionStorage.getItem("authToken");
@@ -39,6 +41,7 @@ function App() {
                     path="/upload-record"
                     element={<UploadRecordPage isLoggedIn={isLoggedIn} />}
                 />
+                <Route path="*" element={<ErrorPage />} />
             </Routes>
         </BrowserRouter>
     );
