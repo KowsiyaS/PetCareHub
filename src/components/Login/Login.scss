@@ -1,44 +1,50 @@
-.login-container {
-    background: white;
-    padding: 2em;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    margin: auto;
-    text-align: center;
-}
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
 
-h1 {
-    margin-bottom: 1em;
-}
+.login {
+    &__container {
+        background: white;
+        padding: 2em;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        margin: 2rem auto;
+        text-align: center;
+    }
 
-label {
-    display: block;
-    margin-bottom: 0.5em;
-}
+    &__title {
+        margin-bottom: 1em;
+    }
 
-input {
-    width: 100%;
-    padding: 0.5em;
-    margin-bottom: 1em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+    &__label {
+        display: block;
+        margin-bottom: 0.5em;
+    }
 
-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 0.75em;
-    border-radius: 4px;
-    cursor: pointer;
-}
+    &__input {
+        width: 100%;
+        padding: 0.5em;
+        margin-bottom: 1em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
 
-button:hover {
-    background-color: #0056b3;
-}
+    &__button {
+        background-color: $primary-purple;
+        color: white;
+        border: none;
+        padding: 0.75em;
+        border-radius: 4px;
+        width: 100%;
+        cursor: pointer;
 
-p {
-    margin-top: 1em;
-    color: red;
+        &:hover {
+            background-color: $secondary-dark-purple;
+        }
+    }
+
+    &__message {
+        margin-top: 1em;
+        color: $error-color;
+    }
 }

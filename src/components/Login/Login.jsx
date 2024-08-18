@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./Login.scss";
 
 const Login = ({ setIsLoggedIn }) => {
     const [username, setUsername] = useState("");
@@ -32,31 +33,39 @@ const Login = ({ setIsLoggedIn }) => {
     };
 
     return (
-        <div className="login-container">
-            <h1>Login</h1>
+        <div className="login__container">
+            <h1 className="login__title">Login</h1>
 
             <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Email:</label>
+                <label htmlFor="username" className="login__label">
+                    Email:
+                </label>
                 <input
                     type="text"
                     id="username"
+                    className="login__input"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
                 />
 
-                <label htmlFor="password">Password:</label>
+                <label htmlFor="password" className="login__label">
+                    Password:
+                </label>
                 <input
                     type="password"
                     id="password"
+                    className="login__input"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
 
-                <button type="submit">Login</button>
+                <button type="submit" className="login__button">
+                    Login
+                </button>
             </form>
-            <p>{message}</p>
+            <p className="login__message">{message}</p>
         </div>
     );
 };

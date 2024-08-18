@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./SignUp.scss";
 
 const SignUp = () => {
     const [username, setUsername] = useState("");
