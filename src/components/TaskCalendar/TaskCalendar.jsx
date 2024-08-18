@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import axios from "axios";
 import AddTaskModal from "../AddTaskModal/AddTaskModal";
 import EventList from "../EventList/EventList";
 import "./TaskCalendar.scss";
-import axios from "axios";
 
 const TaskCalendar = ({ token }) => {
     const [date, setDate] = useState(new Date());
@@ -16,8 +16,6 @@ const TaskCalendar = ({ token }) => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [selectedDateEvents, setSelectedDateEvents] = useState([]);
     const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
-
-    const dotColor = "blue";
 
     const getScheduledDates = async () => {
         try {
@@ -48,7 +46,6 @@ const TaskCalendar = ({ token }) => {
                     }
                     return datesMap;
                 }, {});
-            console.log(dates);
             setScheduledDates(dates);
         } catch (error) {
             console.error("Error retrieving scheduled dates:", error);
@@ -62,7 +59,6 @@ const TaskCalendar = ({ token }) => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(response.data);
             const tempList = response.data.map((pet) => ({
                 value: pet.id,
                 name: pet.name,
@@ -98,27 +94,31 @@ const TaskCalendar = ({ token }) => {
 
     const tileClassName = ({ date }) => {
         const dateString = date.toISOString().split("T")[0];
-        return scheduledDates[dateString] ? "has-event" : null;
+        return scheduledDates[dateString] ? "task-calendar__has-event" : null;
     };
 
     const tileContent = ({ date }) => {
         const dateString = date.toISOString().split("T")[0];
         return scheduledDates[dateString] ? (
-            <div className="event-dot" style={{ backgroundColor: dotColor }} />
+            <div className="task-calendar__event-dot" />
         ) : null;
     };
 
     return isLoaded ? (
-        <div>
+        <div className="task-calendar__container">
             <Calendar
                 onChange={setDate}
                 value={date}
                 tileClassName={tileClassName}
                 tileContent={tileContent}
+                className="task-calendar__calendar"
             />
             {petList.length !== 0 ? (
-                <>
-                    <button onClick={() => setModalIsOpen(true)}>
+                <div>
+                    <button
+                        onClick={() => setModalIsOpen(true)}
+                        className="task-calendar__button"
+                    >
                         Add Task
                     </button>
                     <AddTaskModal
@@ -133,15 +133,15 @@ const TaskCalendar = ({ token }) => {
                         eventType="reminder"
                         token={token}
                     />
-                </>
+                </div>
             ) : (
-                <>
-                    <p>Please add a pet to use the calendar.</p>
-                </>
+                <p className="task-calendar__message">
+                    Please add a pet to use the calendar.
+                </p>
             )}
         </div>
     ) : (
-        <>Loading...</>
+        <p className="task-calendar__loading">Loading...</p>
     );
 };
 
