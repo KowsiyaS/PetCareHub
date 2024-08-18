@@ -1,41 +1,73 @@
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
-import "./AddTaskModal.scss";
 import axios from "axios";
+import "./AddTaskModal.scss";
 
 Modal.setAppElement("#root");
 
-const TaskModal = ({ isOpen, onRequestClose, petList, token }) => {
+const AddTaskModal = ({ isOpen, onRequestClose, petList, token, event }) => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
     const [selectedPet, setSelectedPet] = useState(petList[0]);
+    const [isEditing, setIsEditing] = useState(false);
     const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
+
+    useEffect(() => {
+        if (event) {
+            setName(event.name);
+            setDescription(event.description);
+            setDate(event.date);
+            setTime(event.time);
+            setSelectedPet(petList.find((pet) => pet.value === event.pet_id));
+        } else {
+            setName("");
+            setDescription("");
+            setDate("");
+            setTime("");
+        }
+    }, [event, petList]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const reminder = {
+            const taskData = {
                 pet_id: selectedPet.value,
-                name: name,
-                description: description,
-                date: date,
-                time: time,
+                name,
+                description,
+                date,
+                time,
             };
-            await axios.post(`${API_BASE_URL}/reminder`, reminder, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            console.log(reminder);
-            setDescription("");
+
+            if (event) {
+                await axios.put(
+                    `${API_BASE_URL}/reminder/${event.id}`,
+                    taskData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                console.log("Task updated:", taskData);
+            } else {
+                await axios.post(`${API_BASE_URL}/reminder`, taskData, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                console.log("Task added:", taskData);
+            }
+
             setName("");
+            setDescription("");
             setDate("");
             setTime("");
+            setIsEditing(false);
             onRequestClose();
         } catch (error) {
-            console.error("Cannot add a task.");
+            console.error("Cannot add/update task:", error);
         }
     };
 
@@ -43,73 +75,156 @@ const TaskModal = ({ isOpen, onRequestClose, petList, token }) => {
         <Modal
             isOpen={isOpen}
             onRequestClose={onRequestClose}
-            contentLabel="Add Task"
-            className="modal"
-            overlayClassName="overlay"
+            contentLabel={event ? "Edit Task" : "Add Task"}
+            className="add-task-modal"
+            overlayClassName="add-task-modal__overlay"
         >
-            <h2>Add Task</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="pet-select">Select a pet:</label>
-                    <select
-                        id="pet-select"
-                        value={selectedPet}
-                        onChange={(e) => setSelectedPet(e.target.value)}
-                    >
-                        <option disabled>Select a Pet</option>
-                        {petList.map((pet) => (
-                            <option key={pet.value} value={pet.value}>
-                                {pet.name}
+            <div className="add-task-modal__header">
+                <h3 className="add-task-modal__title">
+                    {event
+                        ? isEditing
+                            ? "Edit Task"
+                            : "View Task"
+                        : "Add Task"}
+                </h3>
+                <button
+                    type="button"
+                    onClick={onRequestClose}
+                    className="add-task-modal__close"
+                >
+                    &times;
+                </button>
+            </div>
+            {isEditing || !event ? (
+                <form onSubmit={handleSubmit} className="add-task-modal__form">
+                    <div className="add-task-modal__field">
+                        <label
+                            htmlFor="pet-select"
+                            className="add-task-modal__label"
+                        >
+                            Select a pet:
+                        </label>
+                        <select
+                            id="pet-select"
+                            className="add-task-modal__select"
+                            value={selectedPet?.value || ""}
+                            onChange={(e) =>
+                                setSelectedPet(
+                                    petList.find(
+                                        (pet) => pet.value === e.target.value
+                                    )
+                                )
+                            }
+                            required
+                        >
+                            <option disabled value="">
+                                Select a Pet
                             </option>
-                        ))}
-                    </select>
-                </div>
-                <div>
-                    <label htmlFor="name">Task Name</label>
-                    <input
-                        type="text"
-                        value={name}
-                        id="name"
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="description">Task Description</label>
-                    <textarea
-                        id="description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    ></textarea>
-                </div>
-                <div>
-                    <label htmlFor="date">Select Date:</label>
-                    <input
-                        id="date"
-                        type="date"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="time">Select Time</label>
-                    <input
-                        id="time"
-                        type="time"
-                        value={time}
-                        onChange={(e) => setTime(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <button type="submit">Add Task</button>
-                    <button type="button" onClick={onRequestClose}>
-                        Cancel
+                            {petList.map((pet) => (
+                                <option key={pet.value} value={pet.value}>
+                                    {pet.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="add-task-modal__field">
+                        <label htmlFor="name" className="add-task-modal__label">
+                            Task Name
+                        </label>
+                        <input
+                            type="text"
+                            id="name"
+                            className="add-task-modal__input"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="add-task-modal__field">
+                        <label
+                            htmlFor="description"
+                            className="add-task-modal__label"
+                        >
+                            Task Description
+                        </label>
+                        <textarea
+                            id="description"
+                            className="add-task-modal__textarea"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        ></textarea>
+                    </div>
+                    <div className="add-task-modal__field">
+                        <label htmlFor="date" className="add-task-modal__label">
+                            Select Date:
+                        </label>
+                        <input
+                            id="date"
+                            type="date"
+                            className="add-task-modal__input"
+                            value={date}
+                            onChange={(e) => setDate(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="add-task-modal__field">
+                        <label htmlFor="time" className="add-task-modal__label">
+                            Select Time
+                        </label>
+                        <input
+                            id="time"
+                            type="time"
+                            className="add-task-modal__input"
+                            value={time}
+                            onChange={(e) => setTime(e.target.value)}
+                        />
+                    </div>
+                    <div className="add-task-modal__buttons">
+                        <button
+                            type="submit"
+                            className="add-task-modal__button"
+                        >
+                            {event ? "Update Task" : "Add Task"}
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                if (event) setIsEditing(false);
+                                onRequestClose();
+                            }}
+                            className="add-task-modal__button--cancel"
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            ) : (
+                <div className="add-task-modal__view">
+                    <p>
+                        <strong>Task Name:</strong> {name}
+                    </p>
+                    <p>
+                        <strong>Description:</strong> {description}
+                    </p>
+                    <p>
+                        <strong>Date:</strong> {date}
+                    </p>
+                    <p>
+                        <strong>Time:</strong> {time}
+                    </p>
+                    <p>
+                        <strong>Pet:</strong> {selectedPet?.name}
+                    </p>
+                    <button
+                        onClick={() => setIsEditing(true)}
+                        className="add-task-modal__button"
+                    >
+                        Edit
                     </button>
                 </div>
-            </form>
+            )}
         </Modal>
     );
 };
 
-export default TaskModal;
+export default AddTaskModal;

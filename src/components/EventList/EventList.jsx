@@ -1,6 +1,20 @@
 import "./EventList.scss";
 
-const EventList = ({ events, selectedDate }) => {
+const convertTime = (timeStr) => {
+    const [hours, minutes] = timeStr.split(":");
+
+    const date = new Date();
+    date.setHours(hours);
+    date.setMinutes(minutes);
+    let hour = date.getHours();
+    const period = hour >= 12 ? "PM" : "AM";
+    hour = hour % 12 || 12;
+    const formattedTime = `${hour.toString()}:${minutes} ${period}`;
+
+    return formattedTime;
+};
+
+const EventList = ({ events, selectedDate, onEventClick }) => {
     return (
         <div className="event-list__container">
             <h2 className="event-list__title">
@@ -16,9 +30,18 @@ const EventList = ({ events, selectedDate }) => {
                                     ? "event-list__item--reminder"
                                     : "event-list__item--appointment"
                             }`}
+                            onClick={() => onEventClick(event)}
                         >
-                            {!event.vet_id ? "Reminder: " : "Appointment: "}
-                            {event.description || "No description"}
+                            <p>
+                                <strong>
+                                    {event.time
+                                        ? convertTime(event.time) + ": "
+                                        : ""}
+                                </strong>
+                            </p>
+                            <p>
+                                {!event.vet_id ? event.name : event.description}
+                            </p>
                         </li>
                     ))
                 ) : (

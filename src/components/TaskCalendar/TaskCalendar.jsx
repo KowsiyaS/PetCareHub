@@ -15,6 +15,7 @@ const TaskCalendar = ({ token }) => {
     const [petList, setPetList] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [selectedDateEvents, setSelectedDateEvents] = useState([]);
+    const [selectedEvent, setSelectedEvent] = useState(null);
     const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
     const getScheduledDates = async () => {
@@ -104,6 +105,26 @@ const TaskCalendar = ({ token }) => {
         ) : null;
     };
 
+    const handleAddTask = () => {
+        setModalIsOpen(true);
+        setSelectedEvent(null);
+    };
+
+    const handleRequestClose = () => {
+        setModalIsOpen(false);
+        setSelectedEvent(null);
+    };
+
+    const handleEventClick = (event) => {
+        if (event.vet_id) {
+            setSelectedEvent(event);
+            navigate("/edit-appointment", { state: event });
+        } else {
+            setSelectedEvent(event);
+            setModalIsOpen(true);
+        }
+    };
+
     return isLoaded ? (
         <div className="task-calendar__container">
             <Calendar
@@ -114,24 +135,24 @@ const TaskCalendar = ({ token }) => {
                 className="task-calendar__calendar"
             />
             {petList.length !== 0 ? (
-                <div>
+                <div className="task-calendar__event-container">
                     <button
-                        onClick={() => setModalIsOpen(true)}
+                        onClick={handleAddTask}
                         className="task-calendar__button"
                     >
                         Add Task
                     </button>
                     <AddTaskModal
                         isOpen={modalIsOpen}
-                        onRequestClose={() => setModalIsOpen(false)}
+                        onRequestClose={handleRequestClose}
                         petList={petList}
                         token={token}
+                        event={selectedEvent}
                     />
                     <EventList
                         events={selectedDateEvents}
                         selectedDate={date}
-                        eventType="reminder"
-                        token={token}
+                        onEventClick={handleEventClick}
                     />
                 </div>
             ) : (

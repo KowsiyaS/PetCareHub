@@ -28,6 +28,10 @@
         }
     }
 
+    &__event-container {
+        width: 100%;
+    }
+
     &__button {
         background-color: $primary-purple;
         width: 100%;
@@ -39,6 +43,10 @@
 
         &:hover {
             background-color: $secondary-dark-purple;
+        }
+
+        @include tablet {
+            margin-bottom: 1rem;
         }
     }
 

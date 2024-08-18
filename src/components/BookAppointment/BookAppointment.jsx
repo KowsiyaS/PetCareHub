@@ -2,17 +2,19 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
-
-const BookAppointment = ({ token }) => {
+const BookAppointment = ({ token, appointmentDetails }) => {
     const location = useLocation();
     const { vetId, name, formatted_address, rating, formatted_phone_number } =
-        location.state;
+        location.state || appointmentDetails;
 
-    const [date, setDate] = useState("");
+    const [date, setDate] = useState(appointmentDetails?.date || "");
     const [timeSlots, setTimeSlots] = useState([]);
-    const [selectedTime, setSelectedTime] = useState("");
-    const [appointmentDetails, setAppointmentDetails] = useState("");
+    const [selectedTime, setSelectedTime] = useState(
+        appointmentDetails?.time || ""
+    );
+    const [description, setDescription] = useState(
+        appointmentDetails?.description || ""
+    );
     const [selectedPet, setSelectedPet] = useState(null);
     const [petList, setPetList] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -31,7 +33,11 @@ const BookAppointment = ({ token }) => {
                 name: pet.name,
             }));
             setPetList(tempList);
-            setSelectedPet(tempList[0]);
+            setSelectedPet(
+                tempList.find(
+                    (pet) => pet.value === appointmentDetails?.pet_id
+                ) || tempList[0]
+            );
             setIsLoaded(true);
         } catch (error) {
             console.error("Error retrieving pets:", error);
@@ -75,23 +81,27 @@ const BookAppointment = ({ token }) => {
         event.preventDefault();
 
         try {
-            const apppointment = {
+            const appointment = {
                 vet_id: vetId,
                 pet_id: selectedPet.value,
-                description: appointmentDetails,
+                description,
                 date,
                 time: selectedTime,
             };
-            await axios.post(`${API_BASE_URL}/appointment`, apppointment, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            await axios.put(
+                `${API_BASE_URL}/appointment/${appointmentDetails.id}`,
+                appointment,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
 
-            alert("Appointment booked successfully!");
+            alert("Appointment updated successfully!");
             navigate("/dashboard");
         } catch (error) {
-            console.error("Error booking appointment", error);
+            console.error("Error updating appointment", error);
         }
     };
 
@@ -101,18 +111,23 @@ const BookAppointment = ({ token }) => {
 
     return petList.length > 0 ? (
         <div>
-            <h2>Book Appointment at {name}</h2>
-            <p>{formatted_address}</p>
-            <p>Phone: {formatted_phone_number}</p>
+            <h2>Book an appointment at {name}</h2>
+            <p>Address: {formatted_address}</p>
             <p>Rating: {rating}</p>
-
+            <p>Phone: {formatted_phone_number}</p>
             <form onSubmit={handleFormSubmit}>
                 <div>
-                    <label htmlFor="pet-select">Select a pet:</label>
+                    <label htmlFor="pet">Pet:</label>
                     <select
-                        id="pet-select"
-                        value={selectedPet}
-                        onChange={(e) => setSelectedPet(e.target.value)}
+                        id="pet"
+                        value={selectedPet?.value || ""}
+                        onChange={(e) =>
+                            setSelectedPet(
+                                petList.find(
+                                    (pet) => pet.value === e.target.value
+                                )
+                            )
+                        }
                     >
                         {petList.map((pet) => (
                             <option key={pet.value} value={pet.value}>
@@ -122,28 +137,22 @@ const BookAppointment = ({ token }) => {
                     </select>
                 </div>
                 <div>
-                    <label htmlFor="date">Select Date:</label>
+                    <label htmlFor="date">Date:</label>
                     <input
                         type="date"
                         id="date"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
-                        required
                     />
                 </div>
-
                 {timeSlots.length > 0 && (
                     <div>
-                        <label htmlFor="time">Select Time Slot:</label>
+                        <label htmlFor="time">Time Slot:</label>
                         <select
                             id="time"
                             value={selectedTime}
                             onChange={(e) => setSelectedTime(e.target.value)}
-                            required
                         >
-                            <option value="" disabled>
-                                Select a time slot
-                            </option>
                             {timeSlots.map((slot, index) => (
                                 <option key={index} value={slot}>
                                     {slot}
@@ -153,19 +162,18 @@ const BookAppointment = ({ token }) => {
                     </div>
                 )}
                 <div>
-                    <label htmlFor="appointment">Appointment Details:</label>
+                    <label htmlFor="description">Description:</label>
                     <textarea
-                        id="appointment"
-                        value={appointmentDetails}
-                        onChange={(e) => setAppointmentDetails(e.target.value)}
-                        required
-                    ></textarea>
+                        id="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
                 </div>
-                <button type="submit">Book Appointment</button>
+                <button type="submit">Update Appointment</button>
             </form>
         </div>
     ) : (
-        <div>Please add a pet to use the booking function.</div>
+        <p>Please add a pet to book an appointment.</p>
     );
 };
 
