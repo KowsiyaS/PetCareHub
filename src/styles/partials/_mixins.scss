@@ -1,0 +1,80 @@
+@use "./variables" as *;
+
+//screen breakpoints
+@mixin tablet {
+    @media screen and (min-width: $tablet-breakpoint) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media screen and (min-width: $desktop-breakpoint) {
+        @content;
+    }
+}
+
+//mixins for paddings
+@mixin desktop-padding {
+    padding-left: $desktop-padding;
+    padding-right: $desktop-padding;
+}
+
+@mixin mobile-heading-padding {
+    padding-top: $mobile-heading-top;
+    padding-bottom: $mobile-padding;
+}
+
+@mixin tablet-heading-padding {
+    padding-top: $tablet-heading-top;
+    padding-bottom: $tablet-padding;
+}
+
+//mixin for divider
+@mixin divider {
+    border-bottom: $divider;
+}
+
+//mixin for form labels
+@mixin form-label {
+    margin-bottom: $form-label-padding;
+    color: $primary-silver;
+    text-transform: uppercase;
+    font-size: $mobile-body-txt;
+}
+
+//mixin for input styles
+@mixin input-style {
+    border: 1px solid $secondary-mercury;
+    border-radius: $form-input-radius;
+    padding: $mobile-form-padding;
+    font-family: inherit;
+}
+
+@mixin input-active {
+    outline: none;
+    border: 2px solid $primary-blue;
+}
+
+@mixin textarea-style {
+    resize: none;
+    height: 6rem;
+    margin-bottom: $mobile-padding;
+}
+
+@mixin input-error {
+    border: 1px solid $error-color;
+}
+
+//mixin for details with demi styling
+@mixin details-demi {
+    font-weight: 600;
+    font-size: $mobile-details-txt;
+}
+
+//avatar styles
+@mixin avatar-style {
+    border-radius: 50%;
+    width: $mobile-avatar-size;
+    height: $mobile-avatar-size;
+    background-color: $secondary-mercury;
+}

@@ -1,0 +1,63 @@
+@use "../src/styles/partials/typography" as *;
+@use "../src/styles/partials/mixins" as *;
+@use "../src//styles/partials/variables" as *;
+
+// setting the font family
+body {
+    font-family: "Poppins", sans-serif;
+    color: $primary-black;
+    text-transform: capitalize;
+}
+
+h1 {
+    font-size: $mobile-header-txt;
+    font-weight: bold;
+    line-height: $mobile-header-lineheight;
+    @include mobile-heading-padding;
+
+    @include tablet {
+        font-size: $tablet-header-txt;
+        line-height: $tablet-header-lineheight;
+        @include tablet-heading-padding;
+    }
+}
+
+h2 {
+    font-size: $mobile-section-header-txt;
+    line-height: $mobile-section-header-lineheight;
+    font-weight: bold;
+    @include mobile-heading-padding;
+
+    @include tablet {
+        font-size: $tablet-section-header-txt;
+        line-height: $tablet-section-header-lineheight;
+        @include tablet-heading-padding;
+    }
+}
+
+h3 {
+    font-size: $mobile-subheader-txt;
+    line-height: $mobile-subheader-lineheight;
+    font-weight: bold;
+    @include mobile-heading-padding;
+
+    @include tablet {
+        font-size: $tablet-subheader-txt;
+        line-height: $tablet-subheader-lineheight;
+        @include tablet-heading-padding;
+    }
+}
+
+p {
+    font-size: $mobile-body-txt;
+    line-height: $mobile-body-lineheight;
+
+    @include tablet {
+        font-size: $tablet-body-txt;
+        line-height: $tablet-body-lineheight;
+    }
+}
+
+a {
+    text-decoration: none;
+}

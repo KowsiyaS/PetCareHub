@@ -1,0 +1,74 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.user-profile {
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 2rem 1rem;
+    max-width: $desktop-breakpoint;
+
+    &__title {
+        font-size: 2rem;
+    }
+    &__details {
+        margin-bottom: 1rem;
+    }
+
+    &__name {
+        font-size: 1rem;
+        padding-top: 0;
+    }
+
+    &__email {
+        font-size: 1rem;
+    }
+
+    &__pets {
+        &-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        &-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        &-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+        }
+    }
+    &__add-button {
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        background-color: $primary-purple;
+        color: $primary-white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 200px;
+
+        &:hover {
+            background-color: $secondary-dark-purple;
+        }
+    }
+
+    &__view-button {
+        width: 100px;
+        background-color: #d5a021;
+        color: $primary-white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 0.25rem 0.5rem;
+
+        &:hover {
+            background-color: #a6771d;
+        }
+    }
+}

@@ -1,0 +1,124 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: $mobile-padding;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: $desktop-breakpoint;
+    margin: auto;
+
+    &__header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    &__title {
+        color: #2c3e50;
+
+        @include desktop {
+            font-size: 2.5rem;
+        }
+    }
+
+    &__content {
+        @include desktop {
+            display: flex;
+            align-items: center;
+            max-width: 1000px;
+            margin: auto;
+        }
+    }
+    &__subtitle {
+        font-size: 1.2rem;
+        color: $primary-grey;
+    }
+
+    &__image-container {
+        @include tablet {
+            width: 500px;
+        }
+    }
+
+    &__image {
+        width: 100%;
+    }
+
+    &__main {
+        width: 100%;
+        max-width: 800px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @include desktop {
+            width: 50%;
+        }
+    }
+
+    &__info {
+        margin-bottom: 30px;
+        &-header {
+            font-size: 1.8rem;
+            color: $primary-black;
+        }
+
+        &-list {
+            list-style: none;
+            padding: 0;
+
+            li {
+                font-size: 1.1rem;
+                margin: 10px 0;
+                color: $primary-grey;
+            }
+        }
+    }
+
+    &__auth {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+        padding-left: 35px;
+
+        @include desktop {
+            flex-direction: row;
+            padding-left: 35px;
+        }
+
+        .home__button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 80%;
+
+            @include desktop {
+                width: 150px;
+            }
+            &--login {
+                background-color: $primary-purple;
+                color: white;
+
+                &:hover {
+                    background-color: $secondary-dark-purple;
+                }
+            }
+
+            &--signup {
+                background-color: #b85c36;
+                color: white;
+
+                &:hover {
+                    background-color: #8b3a2e;
+                }
+            }
+        }
+    }
+}

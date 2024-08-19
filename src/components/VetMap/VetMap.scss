@@ -1,0 +1,17 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.map-container {
+    max-width: $desktop-breakpoint;
+    margin: 1rem auto;
+    padding: 1rem;
+
+    &__button {
+        background-color: $primary-purple;
+        border: none;
+        color: white;
+        border-radius: 5px;
+        padding: 0.5rem;
+        margin-top: 1rem;
+    }
+}

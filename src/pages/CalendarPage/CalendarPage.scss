@@ -1,0 +1,17 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.calendar {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: $desktop-breakpoint;
+
+    &__title {
+        padding-left: 1rem;
+    }
+
+    @include desktop {
+        max-width: $desktop-breakpoint;
+    }
+}

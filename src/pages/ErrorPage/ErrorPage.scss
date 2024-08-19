@@ -1,0 +1,15 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.error {
+    padding: 0 $mobile-padding;
+    border-top: $divider;
+
+    @include tablet {
+        padding: 0 $tablet-padding;
+    }
+
+    @include desktop {
+        @include desktop-padding;
+    }
+}
