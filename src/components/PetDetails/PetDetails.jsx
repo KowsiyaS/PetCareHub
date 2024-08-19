@@ -38,6 +38,10 @@ const PetDetails = ({ token }) => {
         navigate("/upload-record");
     };
 
+    const handleViewRecord = (record) => {
+        navigate("/upload-record", { state: { record } });
+    };
+
     return (
         isLoaded && (
             <div className="pet-details">
@@ -63,7 +67,10 @@ const PetDetails = ({ token }) => {
                                         {record.description}
                                     </p>
                                 </div>
-                                <button className="pet-details__records-list__item__button">
+                                <button
+                                    onClick={() => handleViewRecord(record)}
+                                    className="pet-details__records-list__item__button"
+                                >
                                     View Record
                                 </button>
                             </li>
