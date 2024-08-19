@@ -60,6 +60,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            margin-right: 1rem;
 
             &:hover {
                 background-color: $secondary-dark-purple;
@@ -67,6 +68,14 @@
 
             &--edit {
                 margin-top: 1rem;
+            }
+
+            &--delete {
+                background-color: #a45052;
+
+                &:hover {
+                    background-color: $error-color;
+                }
             }
         }
     }

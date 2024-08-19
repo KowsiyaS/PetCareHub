@@ -1,0 +1,106 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.add-pet-modal {
+    position: relative;
+    max-width: 500px;
+    margin: 1rem auto;
+    padding: 20px;
+    background-color: $primary-white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    &__overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    &__title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    &__field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    &__label {
+        font-size: 1rem;
+        color: #333;
+    }
+
+    &__input {
+        padding: 0.5rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: border-color 0.3s ease;
+
+        &:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+    }
+
+    &__textarea {
+        padding: 0.5rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: border-color 0.3s ease;
+        resize: vertical;
+
+        &:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.5rem;
+    }
+
+    &__button {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s ease;
+
+        &--submit {
+            background-color: $primary-purple;
+            color: $primary-white;
+
+            &:hover {
+                background-color: $secondary-dark-purple;
+            }
+        }
+
+        &--cancel {
+            background-color: #ccc;
+            color: #000;
+
+            &:hover {
+                background-color: #999;
+            }
+        }
+    }
+}

@@ -93,12 +93,12 @@
         }
 
         &--delete {
-            background-color: #e74c3c;
+            background-color: #a45052;
             color: $primary-white;
-        }
 
-        &--delete:hover {
-            background-color: #c0392b;
+            &:hover {
+                background-color: $error-color;
+            }
         }
     }
 

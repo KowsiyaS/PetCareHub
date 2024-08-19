@@ -10,6 +10,7 @@ import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import "./app.scss";
+import UserProfilePage from "./pages/ProfilePage/ProfilePage";
 
 function App() {
     const hasToken = !!sessionStorage.getItem("authToken");
@@ -44,6 +45,10 @@ function App() {
                 <Route
                     path="/upload-record"
                     element={<UploadRecordPage isLoggedIn={isLoggedIn} />}
+                />
+                <Route
+                    path="/profile"
+                    element={<UserProfilePage isLoggedIn={isLoggedIn} />}
                 />
                 <Route path="*" element={<ErrorPage />} />
             </Routes>

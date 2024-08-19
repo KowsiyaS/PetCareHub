@@ -41,7 +41,7 @@ const BookAppointment = ({ token }) => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(response);
+
             setVet(response.data);
         } catch (error) {
             console.error("Error retrieving vet.", error);
@@ -82,7 +82,7 @@ const BookAppointment = ({ token }) => {
             setIsEditMode(true);
         } else {
             const event = location.state;
-            console.log(event);
+
             getVet(event.vet_id);
             setAppointmentId(event.id);
             setDate(event.date);
@@ -165,6 +165,21 @@ const BookAppointment = ({ token }) => {
             } catch (error) {
                 console.error("Error booking appointment", error);
             }
+        }
+    };
+
+    const handleDelete = async () => {
+        if (!appointmentId) return;
+
+        try {
+            await axios.delete(`${API_BASE_URL}/appointment/${appointmentId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            navigate("/dashboard");
+        } catch (error) {
+            console.error("Cannot delete appointment:", error);
         }
     };
 
@@ -291,6 +306,12 @@ const BookAppointment = ({ token }) => {
                         onClick={() => setIsEditMode(true)}
                     >
                         Edit Appointment
+                    </button>
+                    <button
+                        className="book-appointment__form__button book-appointment__form__button--delete"
+                        onClick={handleDelete}
+                    >
+                        Delete Appointment
                     </button>
                 </div>
             )}
