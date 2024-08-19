@@ -42,6 +42,9 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
                         <Link to="/upload-record" className="header__link">
                             Upload Record
                         </Link>
+                        <Link to="/chat" className="header__link">
+                            Chat
+                        </Link>
                         <Link to="/profile" className="header__link">
                             Profile
                         </Link>

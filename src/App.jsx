@@ -12,6 +12,7 @@ import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import "./app.scss";
 import UserProfilePage from "./pages/ProfilePage/ProfilePage";
 import PetDetailsPage from "./pages/PetDetailsPage/PetDetailsPage";
+import ChatPage from "./pages/ChatPage/ChatPage";
 
 function App() {
     const hasToken = !!sessionStorage.getItem("authToken");
@@ -54,6 +55,10 @@ function App() {
                 <Route
                     path="/pet-details/:id"
                     element={<PetDetailsPage isLoggedIn={isLoggedIn} />}
+                />
+                <Route
+                    path="/chat"
+                    element={<ChatPage isLoggedIn={isLoggedIn} />}
                 />
                 <Route path="*" element={<ErrorPage />} />
             </Routes>

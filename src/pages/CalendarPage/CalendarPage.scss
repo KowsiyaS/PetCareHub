@@ -4,6 +4,8 @@
 .calendar {
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
+    max-width: $desktop-breakpoint;
 
     &__title {
         padding-left: 1rem;
