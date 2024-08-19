@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AddPetModal from "../AddPetModal/AddPetModal";
 import "./UserProfile.scss";
@@ -7,7 +8,7 @@ const UserProfile = ({ token }) => {
     const [userDetails, setUserDetails] = useState({});
     const [pets, setPets] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    const navigate = useNavigate();
     const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
     const getUserDetails = async () => {
@@ -46,12 +47,11 @@ const UserProfile = ({ token }) => {
     };
 
     const handleAddPetClick = () => {
-        setEditPet(null);
         setIsModalOpen(true);
     };
 
     const handleViewClick = (pet) => {
-        console.log(pet);
+        navigate(`/pet-details/${pet.id}`, { state: { pet } });
     };
 
     return (

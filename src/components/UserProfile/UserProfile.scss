@@ -57,13 +57,18 @@
             background-color: $secondary-dark-purple;
         }
     }
+
     &__view-button {
         width: 100px;
-        background-color: #ffc107;
-        color: $primary-black;
+        background-color: #d5a021;
+        color: $primary-white;
         border: none;
         border-radius: 5px;
         cursor: pointer;
         padding: 0.25rem 0.5rem;
+
+        &:hover {
+            background-color: #a6771d;
+        }
     }
 }

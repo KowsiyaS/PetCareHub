@@ -7,6 +7,7 @@ import {
     InfoWindow,
 } from "@react-google-maps/api";
 import axios from "axios";
+import "./VetMap.scss";
 
 const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 const GOOGLE_API_KEY = import.meta.env.VITE_APP_GOOGLE_API_KEY;
@@ -18,8 +19,8 @@ const mapContainerStyle = {
 };
 
 const center = {
-    lat: 43.6545,
-    lng: -79.347015,
+    lat: 43.6635,
+    lng: -79.3961,
 };
 
 const VetMap = ({ token }) => {
@@ -124,7 +125,8 @@ const VetMap = ({ token }) => {
     };
 
     return isLoaded ? (
-        <>
+        <div className="map-container">
+            <h1>Find a Vet</h1>
             <GoogleMap
                 mapContainerStyle={mapContainerStyle}
                 zoom={14}
@@ -157,14 +159,17 @@ const VetMap = ({ token }) => {
                             <p>Rating: {selectedPlace.rating}</p>
                             <p>Phone: {selectedPlace.formatted_phone_number}</p>
 
-                            <button onClick={handleBookAppointment}>
+                            <button
+                                className="map-container__button"
+                                onClick={handleBookAppointment}
+                            >
                                 Book Appointment
                             </button>
                         </div>
                     </InfoWindow>
                 )}
             </GoogleMap>
-        </>
+        </div>
     ) : (
         <div>Loading...</div>
     );
