@@ -80,8 +80,7 @@ const AddTaskModal = ({ isOpen, onRequestClose, petList, token, event }) => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log("Task deleted");
-            onRequestClose(); // Close the modal after deletion
+            onRequestClose();
         } catch (error) {
             console.error("Cannot delete task:", error);
         }

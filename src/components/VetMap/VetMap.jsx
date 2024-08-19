@@ -107,13 +107,18 @@ const VetMap = ({ token }) => {
         event.preventDefault();
         const { name, formatted_address, rating, formatted_phone_number } =
             selectedPlace;
+
+        const vet = {
+            vetId: selectedVet.id,
+            name,
+            formatted_address,
+            rating,
+            formatted_phone_number,
+        };
+
         navigate("/book-appointment", {
             state: {
-                vetId: selectedVet.id,
-                name,
-                formatted_address,
-                rating,
-                formatted_phone_number,
+                vet,
             },
         });
     };

@@ -38,6 +38,10 @@ function App() {
                     element={<BookAppointmentPage isLoggedIn={isLoggedIn} />}
                 />
                 <Route
+                    path="/edit-appointment"
+                    element={<BookAppointmentPage isLoggedIn={isLoggedIn} />}
+                />
+                <Route
                     path="/upload-record"
                     element={<UploadRecordPage isLoggedIn={isLoggedIn} />}
                 />

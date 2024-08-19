@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import axios from "axios";
@@ -16,6 +17,7 @@ const TaskCalendar = ({ token }) => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [selectedDateEvents, setSelectedDateEvents] = useState([]);
     const [selectedEvent, setSelectedEvent] = useState(null);
+    const navigate = useNavigate();
     const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
     const getScheduledDates = async () => {
