@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import backIcon from "../../assets/images/back-arrow.png";
 import "./PetDetails.scss";
 
 const PetDetails = ({ token }) => {
@@ -45,7 +46,19 @@ const PetDetails = ({ token }) => {
     return (
         isLoaded && (
             <div className="pet-details">
-                <h1 className="pet-details__title">{pet.name}'s Details</h1>
+                <div className="pet-details__header">
+                    <button
+                        className="pet-details__header-back"
+                        onClick={() => navigate(-1)}
+                    >
+                        <img
+                            className="pet-details__header-image"
+                            src={backIcon}
+                            alt="back arrow from icon8"
+                        />
+                    </button>
+                    <h1 className="pet-details__title">{pet.name}'s Details</h1>
+                </div>
                 <p className="pet-details__info">
                     Birth Date: {pet.birth_date}
                 </p>

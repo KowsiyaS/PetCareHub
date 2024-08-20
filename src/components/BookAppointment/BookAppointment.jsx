@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import backIcon from "../../assets/images/back-arrow.png";
 import "./BookAppointment.scss";
 
 const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
@@ -189,11 +190,30 @@ const BookAppointment = ({ token }) => {
 
     return (
         <div className="book-appointment">
-            <h1>Book an Appointment</h1>
             <div className="book-appointment__header">
-                <p>Clinic: {vet?.name}</p>
-                <p>Address: {vet?.address}</p>
-                <p>Phone: {vet?.phone_number}</p>
+                <button
+                    className="book-appointment__header-back"
+                    onClick={() => navigate(-1)}
+                >
+                    <img
+                        className="book-appointment__header-image"
+                        src={backIcon}
+                        alt="back arrow from icon8"
+                    />
+                </button>
+                <h1>Book an Appointment</h1>
+            </div>
+            <div className="book-appointment__clinic">
+                <p>
+                    <strong>Clinic:</strong> {vet?.name}
+                </p>
+                <p>
+                    <strong>Address:</strong> {vet?.address}
+                </p>
+                <p>
+                    <strong>Phone:</strong>
+                    {vet?.phone_number}
+                </p>
             </div>
 
             {isEditMode ? (
@@ -215,7 +235,7 @@ const BookAppointment = ({ token }) => {
                             onChange={(e) =>
                                 setSelectedPet(
                                     petList.find(
-                                        (pet) => pet.value === e.target.value
+                                        (pet) => pet.value == e.target.value
                                     )
                                 )
                             }

@@ -10,11 +10,12 @@ const AddTaskModal = ({ isOpen, onRequestClose, petList, token, event }) => {
     const [description, setDescription] = useState("");
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
-    const [selectedPet, setSelectedPet] = useState(petList[0]);
+    const [selectedPet, setSelectedPet] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
     useEffect(() => {
+        console.log(petList);
         if (event) {
             setName(event.name);
             setDescription(event.description);
@@ -126,7 +127,7 @@ const AddTaskModal = ({ isOpen, onRequestClose, petList, token, event }) => {
                             onChange={(e) =>
                                 setSelectedPet(
                                     petList.find(
-                                        (pet) => pet.value === e.target.value
+                                        (pet) => pet.value == e.target.value
                                     )
                                 )
                             }

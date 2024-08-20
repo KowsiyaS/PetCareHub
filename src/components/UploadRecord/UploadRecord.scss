@@ -10,6 +10,23 @@
     margin-top: 2rem;
     padding: 1rem;
 
+    &__header {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+
+        &-back {
+            background-color: $primary-white;
+            border: none;
+            cursor: pointer;
+            width: 20px;
+        }
+
+        &-image {
+            width: 2rem;
+        }
+    }
+
     &__form {
         display: flex;
         flex-direction: column;
