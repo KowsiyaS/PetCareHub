@@ -38,6 +38,20 @@ The primary users of PetCare Hub are pet owners who want a convenient way to man
 -   **Google Calendar API**: To schedule and manage appointments.
 -   **Google Gemini API**: To use AI chat functionality.
 
+Explore the Web Application at [PetCare Hub API](https://github.com/KowsiyaS/PetCareHub-API).
+
+## Installation
+
+1. In the terminal run: `npm install`
+2. Create and populate the `.env` file.
+
+## Usage
+
+To use the API locally:
+
+1. Navigate to the project directory in your terminal.
+2. Run `npm run dev` to launch the application.
+
 ### Sitemap
 
 -   **Home**: Introduction to the app and user login/registration.
