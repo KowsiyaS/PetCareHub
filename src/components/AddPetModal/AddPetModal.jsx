@@ -44,7 +44,16 @@ const AddPetModal = ({ isOpen, onRequestClose, token, refreshPets }) => {
             className="add-pet-modal"
             overlayClassName="add-pet-modal__overlay"
         >
-            <h2 className="add-pet-modal__title">Add Pet</h2>
+            <div className="add-pet-modal__header">
+                <h2 className="add-pet-modal__title">Add Pet</h2>
+                <button
+                    type="button"
+                    onClick={onRequestClose}
+                    className="add-task-modal__close"
+                >
+                    &times;
+                </button>
+            </div>
             <form onSubmit={handleSubmit} className="add-pet-modal__form">
                 <div className="add-pet-modal__field">
                     <label htmlFor="pet-name" className="add-pet-modal__label">

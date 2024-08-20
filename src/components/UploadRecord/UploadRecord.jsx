@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import backIcon from "../../assets/images/back-arrow.png";
 import "./UploadRecord.scss";
 
 const UploadRecord = ({ token }) => {
@@ -90,7 +91,19 @@ const UploadRecord = ({ token }) => {
         <div className="upload-record">
             {viewMode ? (
                 <div className="upload-record__view">
-                    <h1>Record Details</h1>
+                    <div className="upload-record__header">
+                        <button
+                            className="upload-record__header-back"
+                            onClick={() => navigate(-1)}
+                        >
+                            <img
+                                className="upload-record__header-image"
+                                src={backIcon}
+                                alt="back arrow from icon8"
+                            />
+                        </button>
+                        <h1>Record Details</h1>
+                    </div>
                     <div className="upload-record__field">
                         <p className="upload-record__label">Title:</p>
                         <p className="upload-record__value">{record?.name}</p>

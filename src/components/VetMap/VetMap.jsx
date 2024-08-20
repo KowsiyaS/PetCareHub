@@ -154,7 +154,9 @@ const VetMap = ({ token }) => {
                         onCloseClick={handleCloseClick}
                     >
                         <div>
-                            <h2>{selectedPlace.name}</h2>
+                            <h3 className="map-container__info-header">
+                                {selectedPlace.name}
+                            </h3>
                             <p>{selectedPlace.formatted_address}</p>
                             <p>Rating: {selectedPlace.rating}</p>
                             <p>Phone: {selectedPlace.formatted_phone_number}</p>

@@ -16,9 +16,11 @@ The primary users of PetCare Hub are pet owners who want a convenient way to man
 
 -   **User Registration and Login**: Users can create accounts and log in to access their pet care information.
 -   **Pet Profiles**: Users can create and manage profiles for each of their pets.
--   **Find Vets**: Search for nearby veterinarians using the Google Maps and Places APIs.
--   **Schedule Appointments**: Users can schedule and manage vet appointments using the Google Calendar API.
--   **Medical Records**: Store and access medical records for each pet.
+-   **Find Vets**: Users can search for nearby veterinarians using the Google Maps and Places APIs.
+-   **Schedule Appointments**: Users can schedule and manage vet appointments using the calendar view.
+-   **Schedule Tasks**: Users can schedule and manage pet tasks using the calendar view.
+-   **Medical Records**: Users can store and access medical records for each pet.
+-   **AI Chat**: Users can ask the AI chatbot for veterinary needs.
 
 ## Implementation
 
@@ -27,23 +29,24 @@ The primary users of PetCare Hub are pet owners who want a convenient way to man
 -   **Frontend**: React, Sass, React Router, Axios
 -   **Backend**: Node.js, Express, Knex
 -   **Database**: MySQL
--   **APIs**: Google Maps API, Google Places API, Google Calendar API
--   **Authentication**: Firebase Authentication
+-   **APIs**: Google Maps API, Google Places API, Gemini API
+-   **Authentication**: bcrypt, JWT
 
 ### APIs
 
--   **Google Maps API**: To locate nearby veterinary clinics.
 -   **Google Places API**: To get details about veterinary clinics.
 -   **Google Calendar API**: To schedule and manage appointments.
+-   **Google Gemini API**: To use AI chat functionality.
 
 ### Sitemap
 
 -   **Home**: Introduction to the app and user login/registration.
--   **Landing Page**: Overview of pets and upcoming appointments.
--   **Find Vets**: Map and list of nearby veterinarians with option to add appointment.
--   **Pet Profiles**: Pet details with option to add medical details.
--   **Appointments/Reminders**: Calendar view of scheduled appointments with option to add reminders.
--   **Pet List**: List of user's pets with option to add pets to your account.
+-   **Landing Page**: Calendar view of scheduled appointments with option to add reminders.
+-   **Find Vets**: Map and list of nearby veterinarians with option to schedule an appointment.
+-   **Pet Profiles**: Pet details with list of medical records with option to add medical details.
+-   **Upload Record**: Upload medical details for a pet.
+-   **Appointments/Reminders**: Forms to add task or appointments to the calendar..
+-   **User Profile**: List of user's pets with option to add pets to your account.
 
 ### Mockups
 
@@ -286,13 +289,11 @@ Firebase Authentication will be used for user authentication.
 ### Test and Deploy
 
 -   Test the application.
--   Fix any bugs and update an UI changes.
+-   Fix any bugs and update any UI changes.
 
 ## Nice-to-haves
 
 -   **Find groomers**: Search for nearby pet groomers using the Google Maps and Places APIs.
--   **Medical records**: Uploads images/documents for medical records.
 -   **Edit user details**: Users can update passwords and personal information.
--   **Edit pet details**: Users can update/delete pet records.
--   **Edit calendar**: Remove or edit appointment/tasks.
+-   **Edit pet details**: Users can update/delete pet or medical records.
 -   **Search records**: Users can search through pet medical records.
